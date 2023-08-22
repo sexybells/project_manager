@@ -1,18 +1,22 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
 import { user_login } from "../../helper/api";
-
+import { useNavigate, redirect } from "react-router-dom";
+import firebase from '../../helper/firebaseConfig'
 const Login = () => {
   const initialValues = { email: "", password: "" };
+  const navigate = useNavigate();
   return (
-    <Formik 
-    initialValues={initialValues} 
-    onSubmit={(values, { setSubmitting }) => {
-            user_login(values).then((res) => {
-                if (res.length) {
-                    console.log(res);
-                }
-            })
+    <Formik
+      initialValues={initialValues}
+      onSubmit={async (values, { setSubmitting }) => {
+        await firebase.auth().signInWithEmailAndPassword(values.email, values.password).then((res) => {
+          if (res) {
+            console.log(res);
+            return navigate("/home");
+          }
+        });
+
       }}
     >
       {({
@@ -42,9 +46,7 @@ const Login = () => {
             value={values.password}
           />
           {errors.password && touched.password && errors.password}
-          <button type="submit">
-            Submit
-          </button>
+          <button type="submit">Submit</button>
         </form>
       )}
     </Formik>
