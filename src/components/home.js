@@ -5,7 +5,6 @@ const Home = () => {
   const [user, setUser] = useState(null);
     const initialValues = {name: ''}
   useEffect(() => {
-    // Đăng ký lắng nghe sự kiện thay đổi trạng thái đăng nhập
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
