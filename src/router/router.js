@@ -11,9 +11,8 @@ export default function WebRoute() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       {/* <Middleware> */}
-      <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Middleware><Home /></Middleware>} />
       {/* </Middleware> */}
-
       <Route path="project:id" />
     </Routes>
   );

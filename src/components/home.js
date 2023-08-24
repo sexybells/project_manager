@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import firebase from "../helper/firebaseConfig";
+import { useSelector } from "react-redux";
 const Home = () => {
   const [user, setUser] = useState(null);
     const initialValues = {name: ''}
+    const {tempUser} = useSelector(state => state.tempUser);
+    console.log('tempUser', tempUser);
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

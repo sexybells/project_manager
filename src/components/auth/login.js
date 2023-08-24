@@ -6,14 +6,19 @@ import firebase from '../../helper/firebaseConfig'
 const Login = () => {
   const initialValues = { email: "", password: "" };
   const navigate = useNavigate();
+  const users = firebase.firestore().collection('User');
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={async (values, { setSubmitting }) => {
         await firebase.auth().signInWithEmailAndPassword(values.email, values.password).then((res) => {
           if (res) {
-            console.log(res);
-            return navigate("/home");
+            console.log(res.user.uid);
+            users.doc(res.user.uid).get().then((querySnapshot) => {
+              console.log(querySnapshot.data());
+            })
+            // localStorage.setItem('user', JSON.stringify(res.user.uid))
+            // return navigate("/");
           }
         });
 
