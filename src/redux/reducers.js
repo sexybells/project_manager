@@ -1,14 +1,25 @@
+import * as Types from './action';
+
 const initialState = {
-    tempUser: {}
-  };
-  
-  const rootReducers = (state = initialState, {type, payload}) => {
+    currentComment: null,
+    recoveryTopicModal: false,
+    detailTopic: null,
+    reportTopicId: null,
+    listComment: [],
+    myListComment: [],
+}
+
+const reducers = (state = initialState, {type, payload} = {}) => {
+    let states = state;
     switch (type) {
-      case 'TEMP_USER':
-        return { ...state, tempUser: payload };
-      default:
-        return state;
+        case Types.SET_CURRENT_USER:
+            states = {...states, currentComment: payload};
+            break;
+        default:
+            states = state;
+            break;
     }
-  };
-  
-  export default rootReducers;
+    return states;
+}
+
+export default reducers;

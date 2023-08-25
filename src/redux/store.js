@@ -1,7 +1,8 @@
-import { createStore } from "redux";
+import { legacy_createStore as createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import reducers from "./reducers";
 
-import rootReducers from "./reducers";
+const reducersStorage = combineReducers({
+    state: reducers,
+});
 
-const store = createStore(rootReducers);
-
-export default store;
+export const store = createStore(reducersStorage);

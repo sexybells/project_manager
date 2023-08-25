@@ -5,8 +5,9 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const [user, setUser] = useState(null);
     const initialValues = {name: ''}
-    const {tempUser} = useSelector(state => state.tempUser);
-    console.log('tempUser', tempUser);
+  //   const {reportTopicId} = useSelector(({state}) => ({
+  //     reportTopicId: state.reportTopicId,
+  // }));
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
