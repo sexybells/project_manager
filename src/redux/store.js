@@ -4,5 +4,5 @@ import reducers from "./reducers";
 const reducersStorage = combineReducers({
     state: reducers,
 });
-
-export const store = createStore(reducersStorage);
+const store = createStore(reducersStorage);
+export default store;

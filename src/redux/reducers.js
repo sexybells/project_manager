@@ -1,19 +1,14 @@
 import * as Types from './action';
 
 const initialState = {
-    currentComment: null,
-    recoveryTopicModal: false,
-    detailTopic: null,
-    reportTopicId: null,
-    listComment: [],
-    myListComment: [],
+    currentUser: {},
 }
 
 const reducers = (state = initialState, {type, payload} = {}) => {
     let states = state;
     switch (type) {
         case Types.SET_CURRENT_USER:
-            states = {...states, currentComment: payload};
+            states = {...states, currentUser: payload};
             break;
         default:
             states = state;

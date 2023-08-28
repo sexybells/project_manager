@@ -2,21 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import firebase from "../helper/firebaseConfig";
 import { useSelector } from "react-redux";
+import { Form, Container } from "react-bootstrap";
 const Home = () => {
   const [user, setUser] = useState(null);
     const initialValues = {name: ''}
-  //   const {reportTopicId} = useSelector(({state}) => ({
-  //     reportTopicId: state.reportTopicId,
-  // }));
+    const {currentUser} = useSelector(({state}) => ({
+      currentUser: state.currentUser,
+  }));
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
+    console.log(currentUser);
   });
   return (
-    <div>
+    <Container>
       <p>Thêm dự án</p>
       <Formik
       initialValues={initialValues}
@@ -38,20 +35,22 @@ const Home = () => {
         isSubmitting,
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-          />
-          {errors.name && touched.name && errors.name}
-          <button type="submit">Submit</button>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label className="text-center">
+                  Project Name
+              </Form.Label>
+              <Form.Control 
+                type='text'
+                name='name'
+                onChange={handleChange}
+                value={values.name}
+              />
+            </Form.Group>
+        </Form>
       )}
     </Formik>
-    </div>
+    </Container>
   );
 };
 
