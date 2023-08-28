@@ -28,8 +28,12 @@ const Login = () => {
                           if (res) {
                             users.doc(res.user.uid).get().then((querySnapshot) => {
                               if (querySnapshot.exists) {
-                                localStorage.setItem('localUser', JSON.stringify(querySnapshot.data()))
-                                dispatch({type: 'SET_CURRENT_USER',payload:  querySnapshot.data()})
+                                const user = {
+                                  id: querySnapshot.id,
+                                  info: querySnapshot.data()
+                                }
+                                localStorage.setItem('localUser', JSON.stringify(user))
+                                dispatch({type: 'SET_CURRENT_USER',payload:  user})
                                 return navigate('/')
                               }
                             })

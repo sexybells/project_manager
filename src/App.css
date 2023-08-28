@@ -3,3 +3,43 @@
   margin: 0;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 30%;
+}
+
+.menu {
+  background-color: #3d96ef;
+}
+
+nav {
+
+}
+
+nav ul {
+  display: flex;
+
+  align-items: center;
+}
+
+.menu li {
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-right: 15px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
+
