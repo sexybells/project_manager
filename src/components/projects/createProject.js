@@ -11,8 +11,9 @@ const CreateProject = () => {
   }));
   const [devList, setDevList] = useState([]);
   const [testerList, setTesterList] = useState([]);
-  const [selected, setSelected] = useState([]);
-
+  const [selectedDev, setSelectedDev] = useState([]);
+  const [selectedTest, setSelectedTest] = useState([]);
+  const [userList, setUserList] = useState([]);
   const users = firebase.firestore().collection('Users');
 
   const initialValues = {
@@ -21,7 +22,6 @@ const CreateProject = () => {
     developer: '',
     tester: '',
     startedAt: '',
-    expireAt: '',
     createdBy: {},
     key: ''
   }
@@ -33,28 +33,19 @@ const CreateProject = () => {
   const fetchUsers = async () => {
     try {
       await users.get().then((querySnapshot) => {
+            const result = [];
         if (querySnapshot.size > 0) {
           querySnapshot.docs.map((item) => {
-            if (item.data().department === 'tester') {
-              const add = [...testerList];
-              const params = {
-                value: item.id,
-                label: item.data().name
-              }
-              add.push(params)
-              setTesterList(add);
-            } else if (item.data().department === 'dev') {
-              const add = [...devList];
-              const params = {
-                value: item.id,
-                label: item.data().name
-              }
-              add.push(params);
-              setDevList(add);
+            const params = {
+              id: item.id,
+              name: item.data().name,
+              department: item.data().department
             }
+            result.push(params);
           });
-
+          setUserList(result);
         }
+        console.log(result)
       })
     } catch (errors) {
       console.log(errors);
@@ -70,6 +61,22 @@ const CreateProject = () => {
     fetchUsers();
   }, [])
 
+  useEffect(() => {
+    const dev = [];
+    const test = [];
+    userList.map((v) => {
+      const params = {value: v.id, label: v.name}
+
+      if (v.department === 'tester') {
+        test.push(params)
+      } else if (v.department === 'dev') {
+        dev.push(params);
+      }
+      setDevList(dev);
+      setTesterList(test);
+    })
+  }, [userList])
+
   const project = firebase.firestore().collection('Projects');
 
   return (
@@ -77,12 +84,13 @@ const CreateProject = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(values)
-          // await project.add({
-          //   name: values.name,
-          //   createdId: currentUser.id,
-          //   status: 1
-          // })
+          console.log(selectedDev, selectedTest)
+          await project.add({
+            name: values.name,
+            createdId: currentUser.id,
+            status: 1,
+            
+          })
         }}
       >
         {({
@@ -104,7 +112,20 @@ const CreateProject = () => {
                 type='text'
                 name='name'
                 onChange={handleChange}
+                placeholder='Project Name'
                 value={values.name}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label className="text-center">
+                Key
+              </Form.Label>
+              <Form.Control
+                type='text'
+                name='key'
+                onChange={handleChange}
+                placeholder='Key'
+                value={values.key}
               />
             </Form.Group>
             <Form.Group className='mb-3'>
@@ -115,8 +136,22 @@ const CreateProject = () => {
                 isMulti
                 classNamePrefix='select'
                 name='developer'
+                placeholder='Select Dev'
                 options={devList}
-                onChange={(select) => setSelected(select)}
+                onChange={(select) => setSelectedDev(select)}
+              />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>
+                Dev
+              </Form.Label>
+              <Select
+                isMulti
+                classNamePrefix='select'
+                name='tester'
+                placeholder='Select Tester'
+                options={testerList}
+                onChange={(select) => setSelectedTest(select)}
               />
             </Form.Group>
             <div className="d-grid">

@@ -7,6 +7,7 @@ const Middleware = ({ children }) => {
   const navigate = useNavigate();
   const user = firebase.auth().currentUser;
   useEffect(() => {
+    console.log('user', user);
     if (!user) {
       return navigate('/login');
     }

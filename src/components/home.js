@@ -15,6 +15,7 @@ const Home = () => {
   });
   return (
     <Container>
+      <Link to={'/register'} className="btn btn-primary">Create user</Link>
       <Link to={'/create-project'} className="btn btn-primary">Them du an</Link>
 
     </Container>

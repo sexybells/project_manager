@@ -5,7 +5,7 @@ import { redirect } from "react-router-dom";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
 const Register = () => {
-  const initialValues = { email: "", password: "", department: '', name:'' };
+  const initialValues = { email: "", password: "", department: '', name: '' };
   const auth = firebase.auth();
   const firestore = firebase.firestore();
 
@@ -50,12 +50,12 @@ const Register = () => {
                             <Form.Label className="text-center">
                               Name
                             </Form.Label>
-                            <Form.Control 
-                            type="text" 
-                            placeholder="Enter Name" 
-                            onChange={handleChange}
-                            value={values.name}
-                            name="name"
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Name"
+                              onChange={handleChange}
+                              value={values.name}
+                              name="name"
                             />
                           </Form.Group>
 
@@ -77,12 +77,12 @@ const Register = () => {
                             controlId="formBasicPassword"
                           >
                             <Form.Label>Password</Form.Label>
-                            <Form.Control 
-                            type="password"
-                            onChange={handleChange}
-                            value={values.password}
-                            name="password"
-                            placeholder="Password" />
+                            <Form.Control
+                              type="password"
+                              onChange={handleChange}
+                              value={values.password}
+                              name="password"
+                              placeholder="Password" />
                           </Form.Group>
                           <Form.Group
                             className="mb-3"
