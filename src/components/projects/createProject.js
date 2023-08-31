@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import firebase from '../../helper/firebaseConfig'
 import { Formik } from 'formik';
 import { Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import Select from 'react-select'
+import { ProjectContext } from '../context/context';
 const CreateProject = () => {
 
   const { currentUser } = useSelector(({ state }) => ({
     currentUser: state.currentUser
   }));
-  const [devList, setDevList] = useState([]);
-  const [testerList, setTesterList] = useState([]);
-  const [selectedDev, setSelectedDev] = useState([]);
-  const [selectedTest, setSelectedTest] = useState([]);
-  const [userList, setUserList] = useState([]);
+
+  const {devList, testerList} = useContext(ProjectContext)
+
   const users = firebase.firestore().collection('Users');
+  const project = firebase.firestore().collection('Projects');
 
   const initialValues = {
     title: '',
@@ -30,54 +30,7 @@ const CreateProject = () => {
 
   }
 
-  const fetchUsers = async () => {
-    try {
-      await users.get().then((querySnapshot) => {
-            const result = [];
-        if (querySnapshot.size > 0) {
-          querySnapshot.docs.map((item) => {
-            const params = {
-              id: item.id,
-              name: item.data().name,
-              department: item.data().department
-            }
-            result.push(params);
-          });
-          setUserList(result);
-        }
-        console.log(result)
-      })
-    } catch (errors) {
-      console.log(errors);
-    }
 
-  }
-
-  const selectField = (FieldProps) => {
-
-  }
-
-  useEffect(() => {
-    fetchUsers();
-  }, [])
-
-  useEffect(() => {
-    const dev = [];
-    const test = [];
-    userList.map((v) => {
-      const params = {value: v.id, label: v.name}
-
-      if (v.department === 'tester') {
-        test.push(params)
-      } else if (v.department === 'dev') {
-        dev.push(params);
-      }
-      setDevList(dev);
-      setTesterList(test);
-    })
-  }, [userList])
-
-  const project = firebase.firestore().collection('Projects');
 
   return (
     <>

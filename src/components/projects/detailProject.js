@@ -7,4 +7,4 @@ const DetailProject = () => {
     )
 }
 
-export default DetailProject;
+export default DetailProject; 
