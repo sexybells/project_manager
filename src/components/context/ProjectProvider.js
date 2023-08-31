@@ -62,7 +62,11 @@ const ProjectProvider = ({children}) => {
       console.log(userList);
     const contextValues = {
         devList,
-        testerList
+        testerList,
+        selectedDev,
+        selectedTest,
+        setSelectedDev,
+        selectedTest
     }
 
     return (

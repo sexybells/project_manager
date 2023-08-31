@@ -11,7 +11,7 @@ const CreateProject = () => {
     currentUser: state.currentUser
   }));
 
-  const {devList, testerList} = useContext(ProjectContext)
+  const {devList, testerList, setSelectedDev, setSelectedTest, selectedDev, selectedTest} = useContext(ProjectContext)
 
   const users = firebase.firestore().collection('Users');
   const project = firebase.firestore().collection('Projects');
@@ -37,7 +37,6 @@ const CreateProject = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log(selectedDev, selectedTest)
           await project.add({
             name: values.name,
             createdId: currentUser.id,
