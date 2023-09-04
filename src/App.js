@@ -7,6 +7,7 @@ import store from './redux/store';
 import firebase from './helper/firebaseConfig'
 import Header from './components/header';
 import { useNavigate } from 'react-router-dom';
+import ProjectProvider from './components/context/ProjectProvider';
 
 function App() {
 
@@ -27,9 +28,11 @@ function App() {
 
   return (
     <Provider store={store}>
+    <ProjectProvider>
     <div className="App">
         <WebRoute />
     </div>
+    </ProjectProvider>
     </Provider>
   );
 }

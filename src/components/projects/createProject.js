@@ -11,11 +11,12 @@ const CreateProject = () => {
     currentUser: state.currentUser
   }));
 
-  const {devList, testerList, setSelectedDev, setSelectedTest, selectedDev, selectedTest} = useContext(ProjectContext)
+  const {devList, testerList} = useContext(ProjectContext)
 
   const users = firebase.firestore().collection('Users');
   const project = firebase.firestore().collection('Projects');
-
+  const [selectedDev, setSelectedDev] = useState([]);
+  const [selectedTest, setSelectedTest] = useState([]);
   const initialValues = {
     title: '',
     description: '',
@@ -41,7 +42,8 @@ const CreateProject = () => {
             name: values.name,
             createdId: currentUser.id,
             status: 1,
-            
+            dev: selectedDev,
+            test: selectedTest
           })
         }}
       >
