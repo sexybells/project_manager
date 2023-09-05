@@ -24,7 +24,7 @@ const Projects = () => {
               name: data.name,
               dev: data.dev,
               test: data.test,
-              id: v.id
+              id: v.id,
             };
             result.push(params);
           });
@@ -51,25 +51,25 @@ const Projects = () => {
           <input className="form-control" />
         </div>
         <div className="form-group">
-            <button type="submit" className="btn btn-primary">Tìm kiếm</button>
+          <button type="submit" className="btn btn-primary">Tìm kiếm</button>
         </div>
       </form>
 
       {list.map((v) => (
-        <table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th width='10%'>Key</th>
-      <th width='100%'>Thông tin dự án</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td><Link to={`/detail-project/${v.id}`}>{v.name}</Link></td>
-    </tr>
-  </tbody>
-</table>
+        <table className="table">
+          <thead className="thead-light">
+          <tr>
+            <th width="10%">Key</th>
+            <th width="100%">Thông tin dự án</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td><Link to={`/detail-project/${v.id}`}>{v.name}</Link></td>
+          </tr>
+          </tbody>
+        </table>
       ))}
     </Container>
   );

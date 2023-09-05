@@ -40,17 +40,22 @@ const CreateTask = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }) => {
-          await taskFirebase.add({
-            name: values.name,
-            createdId: currentUser.id,
-            status: 1,
-            dev: selectedDev,
-            test: selectedTest,
-            projectId: id,
-            description: values.description
-          }).then((res) => {
-            console.log('save',res);
-          }).catch((errors) => console.log(errors))
+          try {
+            await taskFirebase.add({
+              name: values.name,
+              createdId: currentUser.id,
+              status: 1,
+              dev: selectedDev,
+              test: selectedTest,
+              projectId: id,
+              description: values.description
+            }).then((res) => {
+              console.log('save',res);
+            }).catch((errors) => console.log(errors))
+          } catch (e) {
+            console.log(e);
+          }
+
         }}
       >
         {({
