@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { ProjectContext } from "../context/context";
 import firebase from "../../helper/firebaseConfig";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProjectProvider = ({ children }) => {
   const users = firebase.firestore().collection("Users");
   const projects = firebase.firestore().collection("Projects");
   const tasks = firebase.firestore().collection("Tasks");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [devList, setDevList] = useState([]);
   const [testerList, setTesterList] = useState([]);
   const [projectList, setProjectList] = useState([]);
@@ -14,6 +17,26 @@ const ProjectProvider = ({ children }) => {
   const { currentUser } = useSelector(({ state }) => ({
     currentUser: state.currentUser,
   }));
+
+  const setUser = () => {
+   return new Promise((resolve, reject) => {
+      resolve(1);
+      try {
+        const localUser = localStorage.getItem("localUser");
+        if (localUser) {
+           dispatch({
+            type: "SET_CURRENT_USER",
+            payload: JSON.parse(localUser),
+          });
+          // return navigate("/");
+        } else {
+          // return navigate("/login");
+        }
+      } catch(e) {
+        reject(1);
+      }
+    })
+  };
 
   const fetchUsers = async () => {
     try {
@@ -37,7 +60,8 @@ const ProjectProvider = ({ children }) => {
   };
 
   const getProject = async () => {
-    await projects
+    if (currentUser.info) {
+      await projects
       .where(currentUser.info.department, "array-contains", {
         value: `${currentUser.id}`,
         label: currentUser.info.name,
@@ -59,12 +83,20 @@ const ProjectProvider = ({ children }) => {
           setProjectList(result);
         }
       });
-
+    }
   };
+
+
   useEffect(() => {
-    fetchUsers();
-    getProject()
-  }, []);
+    // setUser().then(() =>  {
+    //   debugger;
+      if (currentUser) {
+        fetchUsers();
+        
+        // getProject();
+      }
+    // });
+  }, [currentUser]);
 
   useEffect(() => {
     const dev = [];

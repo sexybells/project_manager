@@ -97,7 +97,7 @@ const CreateProject = () => {
             </Form.Group>
             <Form.Group className='mb-3'>
               <Form.Label>
-                Dev
+                Test
               </Form.Label>
               <Select
                 isMulti

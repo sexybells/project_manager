@@ -9,7 +9,8 @@ const Projects = () => {
   const projects = firebase.firestore().collection("Projects");
   const { currentUser } = useContext(ProjectContext);
   const fetchProject = async () => {
-    await projects
+    if (currentUser.info) {
+      await projects
       .where(currentUser.info.department, "array-contains", {
         value: `${currentUser.id}`,
         label: currentUser.info.name,
@@ -31,12 +32,14 @@ const Projects = () => {
           setList(result);
         }
       });
+    }
+
   };
 
   useEffect(() => {
-    console.log(projects);
+
     fetchProject();
-  }, []);
+  }, [currentUser]);
 
   return (
     <Container>

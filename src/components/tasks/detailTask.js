@@ -8,15 +8,13 @@ const DetailTask = () => {
 
     const task = firebase.firestore().collection('Tasks');
     const {id} = useParams();
-    const [devList, setDevList] = useState([]);
-    const [testerList, setTesterList] = useState([]);
-    const [selectedDev, setSelectedDev] = useState([]);
-    const [selectedTest, setSelectedTest] = useState([]);
-    const [userList, setUserList] = useState([]);
-    const [taskDetail, setTaskDetail] = useState({});
+    const [taskDetail, setTaskDetail] = useState(null);
     const getDetailTask = async () => {
+        console.log('text')
         await task.doc(id).get().then((querySnapshot) => {
+            console.log(querySnapshot);
             if (querySnapshot.exists) {
+                console.log(querySnapshot.data())
                 setTaskDetail(querySnapshot.data());
             }
         })
@@ -36,11 +34,13 @@ const DetailTask = () => {
 
     useEffect(() => {
         getDetailTask()
-    }, [id]);
+    }, []);
+
 
     return (
       <Container>
-          {taskDetail && (
+        {/* <button onClick={() => getDetailTask()}>Call api</button> */}
+          {taskDetail !== null && (
             <table className="table">
                 <thead className="thead-light">
                 <tr>
