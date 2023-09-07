@@ -7,11 +7,11 @@ import Select from 'react-select'
 import { ProjectContext } from '../context/context';
 const CreateProject = () => {
 
-  const { currentUser } = useSelector(({ state }) => ({
-    currentUser: state.currentUser
+  const { currentUser, devList, testerList } = useSelector(({ state }) => ({
+    currentUser: state.currentUser,
+    devList: state.devList,
+    testerList: state.testerList
   }));
-
-  const {devList, testerList} = useContext(ProjectContext)
 
   const users = firebase.firestore().collection('Users');
   const project = firebase.firestore().collection('Projects');

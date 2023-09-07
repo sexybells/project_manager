@@ -1,8 +1,22 @@
 import React from 'react'
 import {Link} from "react-router-dom";
-import {taskStatus} from '../../config/taskConfig'
+import {taskStatus} from '../../config/taskConfig';
+const bgr = {
+  1: 'btn btn-success',
+  2: 'btn btn-secondary',
+  3: 'btn btn-primary',
+  4: 'btn btn-dark',
+  5: 'btn btn-light',
+  6: 'btn btn-danger',
+  7: 'btn btn-info'
+}
 const TaskListItem = (props) => {
   const {list} = props;
+  
+  const renderStatus = () => {
+
+  }
+
   return (
     <table className="table">
       <thead className="thead-light">
@@ -20,7 +34,7 @@ const TaskListItem = (props) => {
           <td>{v.dev.label}</td>
           <td>{v.test.label}</td>
           <td>
-              {taskStatus[v.status]}
+            <p className={bgr[v.status]}>{taskStatus[v.status]}</p>
           </td>
         </tr>
       ))}

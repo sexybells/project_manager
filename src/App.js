@@ -17,12 +17,12 @@ function App() {
 
   useEffect(() => {
     const localUser = localStorage.getItem("localUser");
+    const userParse = JSON.parse(localUser);
     if (localUser) {
       store.dispatch({
         type: "SET_CURRENT_USER",
-        payload: JSON.parse(localUser),
+        payload: userParse,
       });
-      console.log(localUser);
       setLogged(true);
       return navigate("/");
     } else {
@@ -32,11 +32,11 @@ function App() {
   return (
     <Provider store={store}>
       {/* {logged ? ( */}
-        <ProjectProvider>
+        {/* <ProjectProvider> */}
           <div className="App">
             <WebRoute />
           </div>
-        </ProjectProvider>
+        {/* </ProjectProvider> */}
       {/* ) : (
         <LoginRoute />
       )} */}

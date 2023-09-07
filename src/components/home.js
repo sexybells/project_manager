@@ -14,13 +14,14 @@ const Home = () => {
   const { currentUser } = useSelector(({ state }) => ({
     currentUser: state.currentUser,
   }));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("localUser")))
 
   const getTasks = async () => {
     setIsLoading(true);
-    if (currentUser.info.department) {
+    if (user.info.department) {
       await task
         .where(
-          currentUser.info.department + ".value",
+          user.info.department + ".value",
           "==",
           `${currentUser.id}`
         )

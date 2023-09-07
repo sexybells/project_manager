@@ -2,7 +2,9 @@ import * as Types from './action';
 
 const initialState = {
     currentUser: {},
-    projectList: []
+    projectList: [],
+    devList: [],
+    testerList: []
 }
 
 const reducers = (state = initialState, {type, payload} = {}) => {
@@ -12,7 +14,14 @@ const reducers = (state = initialState, {type, payload} = {}) => {
             states = {...states, currentUser: payload};
             break;
         case Types.SET_PROJECT_LIST:
-            states = {...states, projectList: payload}
+            states = {...states, projectList: payload};
+            break;
+        case Types.SET_DEV_LIST:
+            states = {...states, devList: payload};
+            break;
+        case Types.SET_TESTER_LIST:
+            states = {...states, testerList: payload};
+            break;
         default:
             states = state;
             break;
