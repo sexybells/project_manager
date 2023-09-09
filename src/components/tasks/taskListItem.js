@@ -12,7 +12,7 @@ const bgr = {
 }
 const TaskListItem = (props) => {
   const {list} = props;
-  
+
   const renderStatus = () => {
 
   }
@@ -28,8 +28,8 @@ const TaskListItem = (props) => {
       </tr>
       </thead>
       <tbody>
-      {list.map((v) => (
-        <tr>
+      {list.map((v, k) => (
+        <tr key={k}>
           <td><Link to={`/detail-task/${v.id}`}>{v.name}</Link></td>
           <td>{v.dev.label}</td>
           <td>{v.test.label}</td>

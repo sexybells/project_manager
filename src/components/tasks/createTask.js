@@ -8,11 +8,11 @@ import { ProjectContext } from '../context/context';
 import { useParams } from 'react-router-dom';
 const CreateTask = () => {
   const {id} = useParams();
-  const { currentUser } = useSelector(({ state }) => ({
-    currentUser: state.currentUser
+  const { currentUser, projectList } = useSelector(({ state }) => ({
+    currentUser: state.currentUser,
+    projectList: state.projectList,
   }));
 
-  const {devList, testerList, projectList} = useContext(ProjectContext)
 
   const users = firebase.firestore().collection('Users');
   const project = firebase.firestore().collection('Projects');
@@ -20,6 +20,8 @@ const CreateTask = () => {
   const [selectedDev, setSelectedDev] = useState([]);
   const [selectedTest, setSelectedTest] = useState([]);
   const [currentProject, setCurrentProject] = useState([]);
+  const [devList, setDevList] = useState([]);
+  const [testList, setTestList] = useState([]);
   const initialValues = {
     name: '',
     description: '',
@@ -32,6 +34,9 @@ const CreateTask = () => {
   useEffect(() => {
     const proj = projectList.filter((v) => v.id !== id);
     setCurrentProject(proj[0]);
+    setDevList(proj[0].dev);
+    setTestList(proj[0].test);
+
   }, [id])
 
 
@@ -113,7 +118,7 @@ const CreateTask = () => {
                 classNamePrefix='select'
                 name='tester'
                 placeholder='Select Tester'
-                options={testerList}
+                options={testList}
                 onChange={(select) => setSelectedTest(select)}
               />
             </Form.Group>

@@ -38,27 +38,6 @@ const ProjectProvider = ({ children }) => {
     })
   };
 
-  const fetchUsers = async () => {
-    try {
-      await users.get().then((querySnapshot) => {
-        const result = [];
-        if (querySnapshot.size > 0) {
-          querySnapshot.docs.map((item) => {
-            const params = {
-              id: item.id,
-              name: item.data().name,
-              department: item.data().department,
-            };
-            result.push(params);
-          });
-          setUserList(result);
-        }
-      });
-    } catch (errors) {
-      console.log(errors);
-    }
-  };
-
   const getProject = async () => {
     if (currentUser.info) {
       await projects
@@ -87,32 +66,6 @@ const ProjectProvider = ({ children }) => {
   };
 
 
-  useEffect(() => {
-    // setUser().then(() =>  {
-    //   debugger;
-      if (currentUser) {
-        fetchUsers();
-        
-        // getProject();
-      }
-    // });
-  }, [currentUser]);
-
-  useEffect(() => {
-    const dev = [];
-    const test = [];
-    userList.map((v) => {
-      const params = { value: v.id, label: v.name };
-
-      if (v.department === "tester") {
-        test.push(params);
-      } else if (v.department === "dev") {
-        dev.push(params);
-      }
-      setDevList(dev);
-      setTesterList(test);
-    });
-  }, [userList]);
 
   const contextValues = {
     devList,

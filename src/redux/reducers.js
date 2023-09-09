@@ -4,7 +4,8 @@ const initialState = {
     currentUser: {},
     projectList: [],
     devList: [],
-    testerList: []
+    testerList: [],
+    memberInProject: {}
 }
 
 const reducers = (state = initialState, {type, payload} = {}) => {
@@ -21,6 +22,9 @@ const reducers = (state = initialState, {type, payload} = {}) => {
             break;
         case Types.SET_TESTER_LIST:
             states = {...states, testerList: payload};
+            break;
+        case Types.SET_MEMBER_IN_PROJECT:
+            states = {...states, memberInProject: payload};
             break;
         default:
             states = state;

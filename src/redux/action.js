@@ -2,3 +2,5 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const SET_PROJECT_LIST = 'SET_PROJECT_LIST';
 export const SET_DEV_LIST = 'SET_DEV_LIST';
 export const SET_TESTER_LIST = 'SET_TESTER_LIST';
+export const SET_MEMBER_IN_PROJECT = 'SET_DEV_IN_PROJECT';
+

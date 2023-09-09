@@ -11,9 +11,8 @@ import ProjectProvider from "./components/context/ProjectProvider";
 import LoginRoute from "./router/loginRoute";
 
 function App() {
-  const user = firebase.firestore().collection("Users");
+  const users = firebase.firestore().collection("Users");
   const navigate = useNavigate();
-  const [logged, setLogged] = useState(false);
 
   useEffect(() => {
     const localUser = localStorage.getItem("localUser");
@@ -23,7 +22,7 @@ function App() {
         type: "SET_CURRENT_USER",
         payload: userParse,
       });
-      setLogged(true);
+
       return navigate("/");
     } else {
     }

@@ -7,7 +7,7 @@ const Header = () => {
     const {currentUser} = useSelector(({state}) => ({
         currentUser: state.currentUser,
     }));
-    
+
 
     return (
         <header>
@@ -17,20 +17,20 @@ const Header = () => {
                 </div>
                 <div className='header-info'>
                     {/* <p>{currentUser.info.name}</p> */}
-                    <button className='btn btn-secondary'>Logout</button>
+                    <button className='btn btn-secondary'>Đăng xuất</button>
                 </div>
             </div>
             <div className='menu'>
                 <nav className='nav container'>
                     <ul>
                         <li>
-                            <Link to='/'>Dashboard</Link>
+                            <Link to='/'>Trang chủ</Link>
                         </li>
                         <li>
-                            <Link to='/'>Users</Link>
+                            <Link to='/'>Danh sách thành viên</Link>
                         </li>
                         <li>
-                            <Link to='/projects'>Projects</Link>
+                            <Link to='/projects'>Danh sách dự án</Link>
                         </li>
                     </ul>
                 </nav>

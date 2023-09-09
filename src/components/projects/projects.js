@@ -3,35 +3,40 @@ import firebase from "../../helper/firebaseConfig";
 import { ProjectContext } from "../context/context";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Projects = () => {
   const [list, setList] = useState([]);
+  const dispatch = useDispatch();
   const projects = firebase.firestore().collection("Projects");
-  const { currentUser } = useContext(ProjectContext);
+  const { currentUser } = useSelector(({ state }) => ({
+    currentUser: state.currentUser,
+  }));
   const fetchProject = async () => {
     if (currentUser.info) {
       await projects
-      .where(currentUser.info.department, "array-contains", {
-        value: `${currentUser.id}`,
-        label: currentUser.info.name,
-      })
-      .get()
-      .then((querySnapshot) => {
-        if (querySnapshot.size > 0) {
-          const result = [];
-          querySnapshot.docs.map((v) => {
-            const data = v.data();
-            const params = {
-              name: data.name,
-              dev: data.dev,
-              test: data.test,
-              id: v.id,
-            };
-            result.push(params);
-          });
-          setList(result);
-        }
-      });
+        .where(currentUser.info.department, "array-contains", {
+          value: `${currentUser.id}`,
+          label: currentUser.info.name,
+        })
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.size > 0) {
+            const result = [];
+            querySnapshot.docs.map((v) => {
+              const data = v.data();
+              const params = {
+                name: data.name,
+                dev: data.dev,
+                test: data.test,
+                id: v.id,
+              };
+              result.push(params);
+            });
+            setList(result);
+            dispatch({type: 'SET_PROJECT_LIST', payload: result})
+          }
+        });
     }
 
   };
@@ -58,22 +63,24 @@ const Projects = () => {
         </div>
       </form>
 
-      {list.map((v) => (
-        <table className="table">
-          <thead className="thead-light">
-          <tr>
-            <th width="10%">Key</th>
-            <th width="100%">Thông tin dự án</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th scope="row">1</th>
+
+      <table className="table">
+        <thead className="thead-light">
+        <tr>
+          <th width="10%">STT</th>
+          <th width="100%">Thông tin dự án</th>
+        </tr>
+        </thead>
+        <tbody>
+        {list.map((v, k) => (
+          <tr key={k}>
+            <th scope="row">{k + 1}</th>
             <td><Link to={`/detail-project/${v.id}`}>{v.name}</Link></td>
           </tr>
-          </tbody>
-        </table>
-      ))}
+        ))}
+        </tbody>
+      </table>
+
     </Container>
   );
 };
