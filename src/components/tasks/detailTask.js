@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { taskStatus } from "../../config/taskConfig";
 import { parseInt } from "lodash";
-
+import Select from 'react-select'
 const bgr = {
   1: "btn btn-success",
   2: "btn btn-secondary",
@@ -20,6 +20,8 @@ const DetailTask = () => {
   const { id } = useParams();
   const [taskDetail, setTaskDetail] = useState(null);
   const projects = firebase.firestore().collection('Projects');
+  const [devList, setDevList] = useState([]);
+  const [testList, setTestList] = useState([]);
   const getDetailTask = async () => {
     await task.doc(id).get().then((querySnapshot) => {
       if (querySnapshot.exists) {
@@ -38,7 +40,8 @@ const DetailTask = () => {
 
   const fetchMemberInProject = async (projectId) => {
     await projects.doc(projectId).get().then((querySnapshot) => {
-      console.log(querySnapshot.data());
+      setDevList(querySnapshot.data().dev);
+      setTestList(querySnapshot.data().test);
     })
   }
 
