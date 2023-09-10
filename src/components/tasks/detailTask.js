@@ -35,6 +35,8 @@ const DetailTask = () => {
       // status.target.value
       await task.doc(id).update({
           status: parseInt(status.target.value)
+      }).then(() => {
+        alert('Thay đổi thành công')
       })
   };
 
@@ -45,12 +47,20 @@ const DetailTask = () => {
     })
   }
 
-  const changeDev = async () => {
-
+  const changeDev = async (selected) => {
+    await task.doc(id).update({
+      dev: selected
+  }).then(() => {
+    alert('Thay đổi thành công')
+  })
   };
 
-  const changeTest = async () => {
-
+  const changeTest = async (selected) => {
+    await task.doc(id).update({
+      test: selected
+  }).then(() => {
+    alert('Thay đổi thành công')
+  })
   };
 
   useEffect(() => {
@@ -67,6 +77,7 @@ const DetailTask = () => {
           <tr>
             <th width="20%">Tiêu đề</th>
             <td>{taskDetail.name}</td>
+            <td>Sửa</td>
           </tr>
           <tr>
             <th width="10%">Nội dung</th>
@@ -74,11 +85,33 @@ const DetailTask = () => {
           </tr>
           <tr>
             <th width="10%">Người phụ trách</th>
-            <td>{taskDetail.dev.label}</td>
+            <td>
+            <div style={{width: '30%'}}>
+            <Select
+                classNamePrefix='select'
+                name='developer'
+                placeholder='Select Dev'
+                options={devList}
+                defaultValue={taskDetail.dev}
+                onChange={(select) => changeDev(select)}
+              />
+            </div>
+              </td>
           </tr>
           <tr>
             <th width="10%">Tester</th>
-            <td>{taskDetail.test.label}</td>
+            <td>              
+              <div style={{width: '30%'}}>
+              <Select
+                classNamePrefix='select'
+                name='developer'
+                placeholder='Select Dev'
+                options={testList}
+                defaultValue={taskDetail.test}
+                onChange={(select) => changeTest(select)}
+              />
+              </div>
+              </td>
           </tr>
           <tr>
             <th width="10%">Trạng thái</th>

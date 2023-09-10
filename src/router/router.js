@@ -9,6 +9,7 @@ import CreateProject from "../components/projects/createProject";
 import DetailProject from "../components/projects/detailProject";
 import CreateTask from "../components/tasks/createTask";
 import DetailTask from "../components/tasks/detailTask";
+import EditProject from "../components/projects/editProject";
 export default function WebRoute() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ export default function WebRoute() {
       <Route path="/create-task/:id" element={<Middleware><CreateTask /></Middleware>} />
       <Route path="/detail-project/:id" element={<Middleware><DetailProject /></Middleware>} />
       <Route path="/detail-task/:id" element={<Middleware><DetailTask /></Middleware>} />
+      <Route path="/edit-project/:id" element={<Middleware><EditProject /></Middleware>} />
     </Routes>
   );
 }

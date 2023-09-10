@@ -19,7 +19,7 @@ const CreateProject = () => {
   const [selectedDev, setSelectedDev] = useState([]);
   const [selectedTest, setSelectedTest] = useState([]);
   const initialValues = {
-    title: "",
+    name: "",
     description: "",
     developer: "",
     tester: "",
