@@ -126,15 +126,6 @@ const Home = () => {
                         className="form-control"
                       />
                     </div>
-                    <div className="form-group">
-                      <label>Tìm kiếm theo từ khóa</label>
-                      <input
-                        name="key"
-                        type="text"
-                        value={values.key}
-                        className="form-control"
-                      />
-                    </div>
                   </div>
                   <div className="col-6">
                     <div className="form-group m-1">

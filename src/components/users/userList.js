@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import firebase from '../../helper/firebaseConfig';
 import { Container } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import { taskStatus } from "../../config/taskConfig";
 const UserList = () => {
 
     const users = firebase.firestore().collection('Users');
@@ -31,7 +33,28 @@ const UserList = () => {
 
     return (
         <Container>
-
+            <table className="table">
+                <thead className="thead-light">
+                <tr>
+                    <th>Họ Tên</th>
+                    <th>Email</th>
+                    <th>Bộ Phận</th>
+                    <th>Vị trí</th>
+                </tr>
+                </thead>
+                <tbody>
+                {userList.map((v, k) => (
+                  <tr key={k}>
+                      <td>{v.name}</td>
+                      <td>{v.email}</td>
+                      <td>{v.department}</td>
+                      <td>
+                          {v.role}
+                      </td>
+                  </tr>
+                ))}
+                </tbody>
+            </table>
         </Container>
     )
 

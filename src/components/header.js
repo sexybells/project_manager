@@ -8,6 +8,11 @@ const Header = () => {
         currentUser: state.currentUser,
     }));
 
+    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('localUser')))
+
+    const logout = async () => {
+
+    }
 
     return (
         <header>
@@ -16,8 +21,8 @@ const Header = () => {
                     <img src={logo} width={150} />
                 </div>
                 <div className='header-info'>
-                    {/* <p>{currentUser.info.name}</p> */}
-                    <button className='btn btn-secondary'>Đăng xuất</button>
+                     <p>{user.info.name}</p>
+                    <button onClick={logout} className='btn btn-secondary'>Đăng xuất</button>
                 </div>
             </div>
             <div className='menu'>
@@ -27,7 +32,7 @@ const Header = () => {
                             <Link to='/'>Trang chủ</Link>
                         </li>
                         <li>
-                            <Link to='/'>Danh sách thành viên</Link>
+                            <Link to='/user-list'>Danh sách thành viên</Link>
                         </li>
                         <li>
                             <Link to='/projects'>Danh sách dự án</Link>
